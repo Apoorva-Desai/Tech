@@ -14,5 +14,34 @@ total 8
 [root@ip-172-31-92-224 ~]#
 
 ```
+# Docker-compose yml file
 
+```
+version: 3.0
+
+services:
+
+  web:
+    build:
+     dockerfile: "Dockerfile.fe"
+     context: "."
+    ports:
+     - "80:80"
+    networks:
+     - "applan"
+
+  app:
+   build:
+    dockerfile: "Dockerfile.app"
+    context: "."
+   ports:
+    - "8080:8080"
+   networks:
+    - "applan"
+
+networks:
+  applan:
+  name: "applan"
+  
+  ```
 
