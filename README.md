@@ -17,7 +17,7 @@ total 8
 # Docker-compose yml file
 
 ```
-version: 3.0
+version: "3.0"
 
 services:
 
@@ -28,7 +28,7 @@ services:
     ports:
      - "80:80"
     networks:
-     - "applan"
+     - applan
 
   app:
    build:
@@ -37,11 +37,47 @@ services:
    ports:
     - "8080:8080"
    networks:
-    - "applan"
+    - applan
 
 networks:
   applan:
-  name: "applan"
-  
-  ```
+
+```
+# Checking Docker compose yml file for errors
+
+```
+[root@ip-172-31-92-224 ~]# docker-compose config
+networks:
+  applan: {}
+services:
+  app:
+    build:
+      context: /root
+      dockerfile: Dockerfile.app
+    networks:
+      applan: null
+    ports:
+    - 8080:8080/tcp
+```
+# Firing up the Docker compose comand to create containers out of docker file
+
+```
+[root@ip-172-31-92-224 ~]# docker-compose up -d
+Creating network "root_applan" with the default driver
+Creating root_app_1 ... done
+Creating root_web_1 ... done
+[root@ip-172-31-92-224 ~]#
+```
+# Deleting the entire containers and networks using docker-compose
+
+```
+[root@ip-172-31-92-224 ~]# docker-compose down
+Stopping root_web_1 ... done
+Stopping root_app_1 ... done
+Removing root_web_1 ... done
+Removing root_app_1 ... done
+Removing network root_applan
+[root@ip-172-31-92-224 ~]#
+````
+
 
